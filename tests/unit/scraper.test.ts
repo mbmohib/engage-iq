@@ -1,11 +1,11 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { scrapeLinkedInPost } from '../../src/content/scraper';
+import { describe, it, expect, beforeEach } from "vitest";
+import { scrapeLinkedInPost } from "../../src/content/scraper";
 
-describe('LinkedIn Post Scraper', () => {
+describe("LinkedIn Post Scraper", () => {
   let container: HTMLDivElement;
 
   beforeEach(() => {
-    container = document.createElement('div');
+    container = document.createElement("div");
     document.body.appendChild(container);
   });
 
@@ -13,8 +13,8 @@ describe('LinkedIn Post Scraper', () => {
     document.body.removeChild(container);
   });
 
-  describe('extractPostContent', () => {
-    it('should extract post content from feed-shared-text', () => {
+  describe("extractPostContent", () => {
+    it("should extract post content from feed-shared-text", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-text">
@@ -23,11 +23,13 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.content).toBe('This is a test post about AI and technology.');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.content).toBe(
+        "This is a test post about AI and technology."
+      );
     });
 
-    it('should clean up extra whitespace', () => {
+    it("should clean up extra whitespace", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-text">
@@ -36,8 +38,8 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.content).toBe('This is a test post.');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.content).toBe("This is a test post.");
     });
 
     it('should remove "see more" suffix', () => {
@@ -49,20 +51,20 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.content).toBe('This is a long post');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.content).toBe("This is a long post");
     });
 
-    it('should return empty string if no content found', () => {
+    it("should return empty string if no content found", () => {
       container.innerHTML = `<div class="post"></div>`;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.content).toBe('');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.content).toBe("");
     });
   });
 
-  describe('extractAuthorInfo', () => {
-    it('should extract author name and designation', () => {
+  describe("extractAuthorInfo", () => {
+    it("should extract author name and designation", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-actor">
@@ -72,12 +74,12 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.author.name).toBe('John Doe');
-      expect(result.author.designation).toBe('Founder at TechCorp');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.author.name).toBe("John Doe");
+      expect(result.author.designation).toBe("Founder at TechCorp");
     });
 
-    it('should clean designation by removing time prefix', () => {
+    it("should clean designation by removing time prefix", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-actor">
@@ -87,11 +89,11 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.author.designation).toBe('Senior Engineer at Google');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.author.designation).toBe("Senior Engineer at Google");
     });
 
-    it('should clean designation by removing extra info after bullet', () => {
+    it("should clean designation by removing extra info after bullet", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-actor">
@@ -101,21 +103,21 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.author.designation).toBe('CEO at StartupCo');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.author.designation).toBe("CEO at StartupCo");
     });
 
-    it('should return empty strings if author container not found', () => {
+    it("should return empty strings if author container not found", () => {
       container.innerHTML = `<div class="post"></div>`;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      expect(result.author.name).toBe('');
-      expect(result.author.designation).toBe('');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+      expect(result.author.name).toBe("");
+      expect(result.author.designation).toBe("");
     });
   });
 
-  describe('extractMetadata', () => {
-    it('should extract likes, comments, and shares', () => {
+  describe("extractMetadata", () => {
+    it("should extract likes, comments, and shares", () => {
       container.innerHTML = `
         <div class="post">
           <div class="social-details-social-counts">
@@ -126,13 +128,13 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
       expect(result.metadata.likes).toBe(150);
       expect(result.metadata.comments).toBe(25);
       expect(result.metadata.shares).toBe(10);
     });
 
-    it('should parse K suffix correctly', () => {
+    it("should parse K suffix correctly", () => {
       container.innerHTML = `
         <div class="post">
           <div class="social-details-social-counts">
@@ -142,11 +144,11 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
       expect(result.metadata.likes).toBe(2500);
     });
 
-    it('should parse M suffix correctly', () => {
+    it("should parse M suffix correctly", () => {
       container.innerHTML = `
         <div class="post">
           <div class="social-details-social-counts">
@@ -155,22 +157,22 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
       expect(result.metadata.likes).toBe(1200000);
     });
 
-    it('should return zeros if no metadata found', () => {
+    it("should return zeros if no metadata found", () => {
       container.innerHTML = `<div class="post"></div>`;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
       expect(result.metadata.likes).toBe(0);
       expect(result.metadata.comments).toBe(0);
       expect(result.metadata.shares).toBe(0);
     });
   });
 
-  describe('full post scraping', () => {
-    it('should extract all information from a complete post', () => {
+  describe("full post scraping", () => {
+    it("should extract all information from a complete post", () => {
       container.innerHTML = `
         <div class="post">
           <div class="feed-shared-actor">
@@ -189,12 +191,12 @@ describe('LinkedIn Post Scraper', () => {
         </div>
       `;
 
-      const result = scrapeLinkedInPost(container.querySelector('.post')!);
-      
-      expect(result.author.name).toBe('Sarah Williams');
-      expect(result.author.designation).toBe('VP of Engineering at Meta');
-      expect(result.content).toContain('Excited to share');
-      expect(result.content).toContain('amazing team');
+      const result = scrapeLinkedInPost(container.querySelector(".post")!);
+
+      expect(result.author.name).toBe("Sarah Williams");
+      expect(result.author.designation).toBe("VP of Engineering at Meta");
+      expect(result.content).toContain("Excited to share");
+      expect(result.content).toContain("amazing team");
       expect(result.metadata.likes).toBe(1500);
       expect(result.metadata.comments).toBe(89);
       expect(result.metadata.shares).toBe(45);

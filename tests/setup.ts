@@ -1,4 +1,4 @@
-import { beforeAll, afterEach } from 'vitest';
+import { beforeAll, afterEach } from "vitest";
 
 global.chrome = {
   storage: {

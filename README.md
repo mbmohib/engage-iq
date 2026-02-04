@@ -13,16 +13,19 @@ Chrome extension that analyzes LinkedIn posts and generates intelligent, persona
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Build the extension:
+
 ```bash
 npm run build
 ```
 
 3. Load in Chrome:
+
 - Open `chrome://extensions/`
 - Enable "Developer mode"
 - Click "Load unpacked"
@@ -31,6 +34,7 @@ npm run build
 ## Development
 
 Run in watch mode:
+
 ```bash
 npm run dev
 ```
@@ -38,18 +42,21 @@ npm run dev
 ## Testing
 
 ### Unit Tests (Vitest)
+
 ```bash
 npm test              # Run unit tests
 npm run test:ui       # Run tests with UI
 ```
 
 ### E2E Tests (Playwright)
+
 ```bash
 npm run test:e2e      # Run E2E tests
 npm run test:e2e:ui   # Run E2E tests with UI
 ```
 
 ### Test Structure
+
 ```
 tests/
 ├── unit/             # Unit tests for utilities and components
@@ -79,6 +86,7 @@ The project uses TypeScript for type safety. All source files are `.ts` or `.tsx
 ## CI/CD
 
 GitHub Actions workflow runs on every push:
+
 - Unit tests with Vitest
 - E2E tests with Playwright
 - Build verification

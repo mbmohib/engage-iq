@@ -1,14 +1,14 @@
-import { test, expect } from '@playwright/test';
-import mockPosts from '../fixtures/mock-posts.json';
+import { test, expect } from "@playwright/test";
+import mockPosts from "../fixtures/mock-posts.json";
 
-test.describe('LinkedIn Post Scraper E2E', () => {
+test.describe("LinkedIn Post Scraper E2E", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('about:blank');
+    await page.goto("about:blank");
   });
 
-  test('should scrape thought leadership post', async ({ page }) => {
+  test("should scrape thought leadership post", async ({ page }) => {
     const post = mockPosts.thoughtLeadershipPost;
-    
+
     await page.setContent(`
       <!DOCTYPE html>
       <html>
@@ -29,16 +29,20 @@ test.describe('LinkedIn Post Scraper E2E', () => {
       </html>
     `);
 
-    const authorName = await page.locator('.feed-shared-actor__name').textContent();
-    const authorDesignation = await page.locator('.feed-shared-actor__description').textContent();
-    const content = await page.locator('.feed-shared-text').textContent();
+    const authorName = await page
+      .locator(".feed-shared-actor__name")
+      .textContent();
+    const authorDesignation = await page
+      .locator(".feed-shared-actor__description")
+      .textContent();
+    const content = await page.locator(".feed-shared-text").textContent();
 
     expect(authorName).toBe(post.author.name);
     expect(authorDesignation).toBe(post.author.designation);
-    expect(content).toContain('After 10 years in tech');
+    expect(content).toContain("After 10 years in tech");
   });
 
-  test('should handle multiple post types', async ({ page }) => {
+  test("should handle multiple post types", async ({ page }) => {
     await page.setContent(`
       <!DOCTYPE html>
       <html>
@@ -63,17 +67,23 @@ test.describe('LinkedIn Post Scraper E2E', () => {
       </html>
     `);
 
-    const posts = await page.locator('.post').all();
+    const posts = await page.locator(".post").all();
     expect(posts.length).toBe(2);
 
-    const firstAuthor = await posts[0].locator('.feed-shared-actor__name').textContent();
+    const firstAuthor = await posts[0]
+      .locator(".feed-shared-actor__name")
+      .textContent();
     expect(firstAuthor).toBe(mockPosts.announcementPost.author.name);
 
-    const secondAuthor = await posts[1].locator('.feed-shared-actor__name').textContent();
+    const secondAuthor = await posts[1]
+      .locator(".feed-shared-actor__name")
+      .textContent();
     expect(secondAuthor).toBe(mockPosts.opinionPost.author.name);
   });
 
-  test('should extract designation correctly with time prefix', async ({ page }) => {
+  test("should extract designation correctly with time prefix", async ({
+    page,
+  }) => {
     await page.setContent(`
       <!DOCTYPE html>
       <html>
@@ -88,11 +98,15 @@ test.describe('LinkedIn Post Scraper E2E', () => {
       </html>
     `);
 
-    const designation = await page.locator('.feed-shared-actor__description').textContent();
-    expect(designation).toContain('Software Engineer at TechCo');
+    const designation = await page
+      .locator(".feed-shared-actor__description")
+      .textContent();
+    expect(designation).toContain("Software Engineer at TechCo");
   });
 
-  test('should handle large engagement numbers with K suffix', async ({ page }) => {
+  test("should handle large engagement numbers with K suffix", async ({
+    page,
+  }) => {
     await page.setContent(`
       <!DOCTYPE html>
       <html>
@@ -107,14 +121,18 @@ test.describe('LinkedIn Post Scraper E2E', () => {
       </html>
     `);
 
-    const likes = await page.locator('.social-details-social-counts__reactions-count').textContent();
-    const comments = await page.locator('.social-details-social-counts__comments').textContent();
+    const likes = await page
+      .locator(".social-details-social-counts__reactions-count")
+      .textContent();
+    const comments = await page
+      .locator(".social-details-social-counts__comments")
+      .textContent();
 
-    expect(likes).toBe('15.3K');
-    expect(comments).toContain('1.2K');
+    expect(likes).toBe("15.3K");
+    expect(comments).toContain("1.2K");
   });
 
-  test('should handle posts with minimal engagement', async ({ page }) => {
+  test("should handle posts with minimal engagement", async ({ page }) => {
     await page.setContent(`
       <!DOCTYPE html>
       <html>
@@ -130,10 +148,12 @@ test.describe('LinkedIn Post Scraper E2E', () => {
       </html>
     `);
 
-    const content = await page.locator('.feed-shared-text').textContent();
-    expect(content).toBe('My first post on LinkedIn!');
+    const content = await page.locator(".feed-shared-text").textContent();
+    expect(content).toBe("My first post on LinkedIn!");
 
-    const socialCounts = await page.locator('.social-details-social-counts').count();
+    const socialCounts = await page
+      .locator(".social-details-social-counts")
+      .count();
     expect(socialCounts).toBe(0);
   });
 });

@@ -1,0 +1,28 @@
+.engageiq-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #0A66C2 0%, #378FE9 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(10, 102, 194, 0.3);
+  z-index: 1000;
+}
+
+.engageiq-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 102, 194, 0.4);
+}
+
+.engageiq-button:active {
+  transform: translateY(0);
+}

@@ -1,0 +1,62 @@
+{
+  "thoughtLeadershipPost": {
+    "author": {
+      "name": "Alex Chen",
+      "designation": "Founder & CEO at InnovateLab"
+    },
+    "content": "After 10 years in tech, I've learned that the best products aren't built by following trends, but by deeply understanding user problems. Here are 5 lessons that changed how I build:\n\n1. Talk to users daily\n2. Ship fast, iterate faster\n3. Focus beats features\n4. Culture compounds\n5. Solve real pain, not imagined ones\n\nWhat lessons have shaped your product philosophy?",
+    "metadata": {
+      "likes": 2500,
+      "comments": 156,
+      "shares": 89
+    }
+  },
+  "announcementPost": {
+    "author": {
+      "name": "Jessica Martinez",
+      "designation": "VP of Engineering at DataFlow"
+    },
+    "content": "Thrilled to announce that DataFlow just raised our Series B! $50M led by Sequoia to scale our data infrastructure platform. Huge thanks to our incredible team and early believers. We're hiring across engineering, sales, and customer success. DM me if you're interested in joining our mission to make data infrastructure accessible to every company.",
+    "metadata": {
+      "likes": 5200,
+      "comments": 342,
+      "shares": 198
+    }
+  },
+  "opinionPost": {
+    "author": {
+      "name": "Marcus Johnson",
+      "designation": "Senior Software Engineer at Microsoft"
+    },
+    "content": "Unpopular opinion: Most companies don't need microservices. I've seen too many teams complicate their architecture for problems they don't have. Start with a monolith. Split when you actually feel the pain. Your 5-person startup doesn't need the same architecture as Netflix. Focus on solving customer problems, not engineering flex.",
+    "metadata": {
+      "likes": 1800,
+      "comments": 287,
+      "shares": 65
+    }
+  },
+  "questionPost": {
+    "author": {
+      "name": "Emily Zhang",
+      "designation": "Product Manager at Stripe"
+    },
+    "content": "Quick poll for PMs: What's your biggest challenge right now?\n\nA) Getting engineering resources\nB) Prioritization / saying no\nC) Understanding user needs\nD) Stakeholder alignment\n\nComment with your letter + one sentence on why. Trying to understand common pain points across the PM community.",
+    "metadata": {
+      "likes": 980,
+      "comments": 412,
+      "shares": 34
+    }
+  },
+  "celebrationPost": {
+    "author": {
+      "name": "David Park",
+      "designation": "Recruiting Lead at Google"
+    },
+    "content": "🎉 Officially 5 years at Google today! What an incredible journey. From IC recruiter to leading a team of 15 across 3 offices. Grateful for the mentors, teammates, and candidates who've made this possible. Here's to the next chapter!",
+    "metadata": {
+      "likes": 650,
+      "comments": 89,
+      "shares": 12
+    }
+  }
+}

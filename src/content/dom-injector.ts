@@ -1,4 +1,5 @@
 import { scrapeLinkedInPost } from "./scraper";
+import "./styles.css";
 
 function injectEngageIQButton(): void {
   const posts = document.querySelectorAll('[data-urn*="urn:li:activity"]');

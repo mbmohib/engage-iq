@@ -4,6 +4,8 @@ import {
   renameSync,
   existsSync,
   writeFileSync,
+  readdirSync,
+  readFileSync,
 } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
@@ -35,6 +37,24 @@ if (existsSync(resolve(distDir, "src/popup/index.html"))) {
     resolve(distDir, "src/popup/index.html"),
     resolve(distDir, "popup/index.html")
   );
+}
+
+const contentDir = resolve(distDir, "content");
+mkdirSync(contentDir, { recursive: true });
+
+const assetsCss = readdirSync(resolve(distDir, "assets"))
+  .filter(f => f.endsWith(".css"))
+  .map(f => resolve(distDir, "assets", f));
+
+if (assetsCss.length > 0) {
+  const contentCss = assetsCss.find(f => {
+    const content = readFileSync(f, "utf8");
+    return content.includes(".engageiq-button");
+  });
+
+  if (contentCss) {
+    copyFileSync(contentCss, resolve(contentDir, "styles.css"));
+  }
 }
 
 const createPlaceholderIcon = size => {
@@ -75,6 +95,7 @@ for (const size of sizes) {
 console.log("✓ Post-build setup complete");
 console.log("✓ Manifest copied");
 console.log("✓ HTML files moved to correct locations");
+console.log("✓ Content CSS copied to content/styles.css");
 if (iconsCreated) {
   console.log("✓ Placeholder icons created");
 } else {

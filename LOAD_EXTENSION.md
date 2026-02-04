@@ -3,19 +3,23 @@
 ## Quick Start
 
 1. **Build the extension** (if not already built):
+
    ```bash
    npm run build
    ```
 
 2. **Open Chrome Extensions page**:
+
    - Open Chrome browser
    - Navigate to `chrome://extensions/`
    - Or: Menu (⋮) → Extensions → Manage extensions
 
 3. **Enable Developer Mode**:
+
    - Toggle "Developer mode" switch in the top-right corner
 
 4. **Load the extension**:
+
    - Click "Load unpacked" button
    - Navigate to and select the `dist` folder in this project:
      ```
@@ -29,6 +33,7 @@
 ## Testing the Extension
 
 1. **Navigate to LinkedIn**:
+
    - Go to https://www.linkedin.com
    - Log in to your account
 
@@ -46,6 +51,7 @@ npm run dev
 ```
 
 This will watch for changes and rebuild automatically. After rebuilding:
+
 - Go to `chrome://extensions/`
 - Click the refresh icon (🔄) on the EngageIQ extension card
 
